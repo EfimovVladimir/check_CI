@@ -57,6 +57,7 @@ jobs:
       shell: bash -l {0}
       run: |
         cd autotests
+        chmod +x gradlew
         conda activate beakerx
         python ci_tests.py --app=notebook --tst=groovy.*
       
