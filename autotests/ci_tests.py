@@ -31,9 +31,11 @@ if args.tst:
 # start jupyter notebook
 if platform.system() == 'Windows':
     nb_command = 'jupyter %(app)s --no-browser --notebook-dir="%(dir)s" --NotebookApp.token=""' % { "app" : cur_app, "dir" : beakerx_dir }
+    print(nb_command)
     beakerx = subprocess.Popen(nb_command, stderr=subprocess.STDOUT, stdout=subprocess.PIPE, shell=True)
 else:
     nb_command = 'jupyter %(app)s --no-browser --notebook-dir="%(dir)s" --NotebookApp.token=""' % { "app" : cur_app, "dir" : beakerx_dir }
+    print(nb_command)
     beakerx = subprocess.Popen(nb_command, shell=True, executable="/bin/bash", preexec_fn=os.setsid, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
 # wait for notebook server to start up
 while 1:
@@ -46,5 +48,6 @@ while 1:
 
 # run tests
 tst_command = 'gradle cleanTest test -Dcur_app=%(app)s --tests "com.twosigma.beakerx.autotests.%(tst)s"' % { "app" : cur_app, "tst" : tst_templ }
+print(tst_command)
 result = subprocess.call(tst_command, shell=True)
 print(result)
