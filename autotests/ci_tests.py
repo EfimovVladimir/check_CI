@@ -30,10 +30,10 @@ if args.tst:
 
 # start jupyter notebook
 if platform.system() == 'Windows':
-    nb_command = 'conda activate %(env)s && jupyter %(app)s --no-browser --notebook-dir="%(dir)s" --NotebookApp.token=""' % { "env": conda_env, "app" : cur_app, "dir" : beakerx_dir }
+    nb_command = 'jupyter %(app)s --no-browser --notebook-dir="%(dir)s" --NotebookApp.token=""' % { "app" : cur_app, "dir" : beakerx_dir }
     beakerx = subprocess.Popen(nb_command, stderr=subprocess.STDOUT, stdout=subprocess.PIPE, shell=True)
 else:
-    nb_command = 'eval "$(conda shell.bash hook)" && conda activate %(env)s && jupyter %(app)s --no-browser --notebook-dir="%(dir)s" --NotebookApp.token=""' % { "env": conda_env, "app" : cur_app, "dir" : beakerx_dir }
+    nb_command = 'jupyter %(app)s --no-browser --notebook-dir="%(dir)s" --NotebookApp.token=""' % { "app" : cur_app, "dir" : beakerx_dir }
     beakerx = subprocess.Popen(nb_command, shell=True, executable="/bin/bash", preexec_fn=os.setsid, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
 # wait for notebook server to start up
 while 1:
