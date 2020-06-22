@@ -57,6 +57,5 @@ jobs:
       shell: bash -l {0}
       run: |
         conda activate beakerx
-        jupyter notebook --no-browser --notebook-dir="autotests" --NotebookApp.token=""
-        gradle cleanTest test -Dcur_app=notebook --tests "com.twosigma.beakerx.autotests.groovy.Groovy*"
+        python ci_tests.py --env=beakerx --app=notebook --tst=groovy.*
       
