@@ -40,7 +40,7 @@ public class GroovyTest extends BaseTest {
         WebElement codeCell = beakerxPO.runCodeCellByIndex(cellIndex);
         String txt = beakerxPO.getAllOutputsOfCodeCell(codeCell, beakerxPO.getAllOutputsExecuteResultsSelector())
                 .get(0).getText();
-        Assert.assertEquals(txt, "2");
+        Assert.assertEquals(txt, "ty2");
     }
 
 }
