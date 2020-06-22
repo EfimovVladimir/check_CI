@@ -34,3 +34,28 @@ jobs:
         cd $GITHUB_WORKSPACE/beakerx_kernel_base
         chmod +x gradlew
         ./gradlew install
+    - name: Checkout beakerx_kernel_groovy repo
+      uses: actions/checkout@v2
+      with:
+        repository: twosigma/beakerx_kernel_groovy
+        path: beakerx_kernel_groovy
+    - name: Update conda package
+      shell: bash -l {0}
+      run: |
+        cd $GITHUB_WORKSPACE/beakerx_kernel_groovy/groovy-dist
+        conda env create -n beakerx -f configuration.yml
+    - name: Build BeakerX Groovy Kernel
+      shell: bash -l {0}
+      run: |
+        chmod +x gradlew
+        cd $GITHUB_WORKSPACE/beakerx_kernel_groovy/groovy-dist
+        conda activate beakerx
+        pip install -r requirements.txt --verbose
+        beakerx_kernel_groovy install    
+    - name: Run e2e tests (Groovy kernel)
+      shell: bash -l {0}
+      run: |
+        conda activate beakerx
+        jupyter notebook --no-browser --notebook-dir="autotests" --NotebookApp.token=""
+        gradle cleanTest test -Dcur_app=notebook --tests "com.twosigma.beakerx.autotests.groovy.Groovy*"
+      
