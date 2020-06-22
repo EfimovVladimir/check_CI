@@ -51,3 +51,4 @@ tst_command = './gradlew cleanTest test -Dcur_app=%(app)s --tests "com.twosigma.
 print(tst_command)
 result = subprocess.call(tst_command, shell=True)
 print(result)
+return result

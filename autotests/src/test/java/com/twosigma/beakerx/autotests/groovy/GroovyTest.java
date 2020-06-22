@@ -22,7 +22,7 @@ public class GroovyTest extends BaseTest {
         WebElement codeCell = beakerxPO.runCodeCellByIndex(cellIndex);
         String txt = beakerxPO.getAllOutputsOfCodeCell(codeCell, beakerxPO.getAllOutputsExecuteResultsSelector())
                 .get(0).getText();
-        Assert.assertEquals(txt, "2");
+        Assert.assertEquals(txt, "ty2");
     }
 
     @Test(priority = 5, description = "Stderr output contains \"groovy.lang.MissingPropertyException\"")
