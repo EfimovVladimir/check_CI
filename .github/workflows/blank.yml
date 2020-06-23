@@ -62,7 +62,7 @@ jobs:
     - name: Run e2e tests (Groovy kernel)
       shell: bash -l {0}
       run: |
-        cd vladimir_tests/autotests
+        cd $GITHUB_WORKSPACE/vladimir_tests/autotests
         chmod +x gradlew
         conda activate beakerx
         python ci_tests.py --app=notebook --tst=groovy.* 
