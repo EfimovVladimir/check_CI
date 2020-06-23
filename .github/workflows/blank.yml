@@ -52,11 +52,17 @@ jobs:
         cd groovy-dist
         conda activate beakerx
         pip install -r requirements.txt --verbose
-        beakerx_kernel_groovy install    
+        beakerx_kernel_groovy install
+    - name: Checkout beakerx_tests repo
+      uses: actions/checkout@v2
+      with:
+        repository: twosigma/beakerx_tests
+        path: vladimir_tests
+        ref: vladimir/autotranslation_test    
     - name: Run e2e tests (Groovy kernel)
       shell: bash -l {0}
       run: |
-        cd autotests
+        cd $GITHUB_WORKSPACE/vladimir_tests/autotests
         chmod +x gradlew
         conda activate beakerx
         python ci_tests.py --app=notebook --tst=groovy.* 
