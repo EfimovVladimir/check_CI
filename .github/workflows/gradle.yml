@@ -17,10 +17,6 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
-    - name: Set up Conda
-      uses: goanpeca/setup-miniconda@v1
-      with:
-        miniconda-version: "latest"
     - name: Cache Conda
       uses: actions/cache@v1
       with:
@@ -28,6 +24,10 @@ jobs:
         key: ${{ runner.os }}-mconda-${{ hashFiles('**/configuration.yml') }}
         restore-keys: |
           ${{ runner.os }}-conda- 
+    - name: Set up Conda
+      uses: goanpeca/setup-miniconda@v1
+      with:
+        miniconda-version: "latest"
     - name: Verify conda version
       shell: bash -l {0}
       run: conda --version
@@ -45,4 +45,4 @@ jobs:
       shell: bash -l {0}
       run: |
         cd beakerx_tests/dev_scripts
-        ./install_kernels_notebook.sh
+        ./install_kernels_notebook.sh beakerx
