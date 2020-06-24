@@ -21,6 +21,13 @@ jobs:
       uses: goanpeca/setup-miniconda@v1
       with:
         miniconda-version: "latest"
+    - name: Cache Conda
+      uses: actions/cache@v1
+      with:
+        path: ~/.conda
+        key: ${{ runner.os }}-mconda-${{ hashFiles('**/configuration.yml') }}
+        restore-keys: |
+          ${{ runner.os }}-conda- 
     - name: Verify conda version
       shell: bash -l {0}
       run: conda --version
@@ -35,6 +42,7 @@ jobs:
         repository: twosigma/beakerx_kernel_base
         path: beakerx_kernel_base
     - name: Build BeakerX Kernel Base
+      shell: bash -l {0}
       run: |
         cd beakerx_tests/dev_scripts
         install_kernels_notebook
