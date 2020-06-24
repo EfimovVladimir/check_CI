@@ -36,5 +36,5 @@ jobs:
         path: beakerx_kernel_base
     - name: Build BeakerX Kernel Base
       run: |
-        cd $GITHUB_WORKSPACE/dev_scripts/install_kernels_notebook.sh
+        cd beakerx_tests/dev_scripts
         install_kernels_notebook
