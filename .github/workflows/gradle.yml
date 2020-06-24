@@ -73,12 +73,16 @@ jobs:
     - name: Build BeakerX Java Kernel
       shell: bash -l {0}
       run: |
-        cd $GITHUB_WORKSPACE/beakerx_kernel_java
-        chmod +x gradlew
-        cd groovy-dist
-        conda activate beakerx
+        cd $GITHUB_WORKSPACE/beakerx_kernel_java/java-dist
         pip install -r requirements.txt --verbose
         beakerx_kernel_java install
+    - name: Run e2e tests (Groovy kernel)
+      shell: bash -l {0}
+      run: |
+        cd $GITHUB_WORKSPACE/beakerx_tests/autotests
+        chmod +x gradlew
+        conda activate beakerx
+        python ci_tests.py --app=notebook --tst=groovy.* 
     - name: Run e2e tests (Java kernel)
       shell: bash -l {0}
       run: |
