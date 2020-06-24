@@ -45,4 +45,4 @@ jobs:
       shell: bash -l {0}
       run: |
         cd beakerx_tests/dev_scripts
-        install_kernels_notebook
+        ./install_kernels_notebook.sh
