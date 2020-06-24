@@ -36,13 +36,59 @@ jobs:
       with:
         repository: twosigma/beakerx_tests
         path: beakerx_tests
+    - name: Update conda package
+      shell: bash -l {0}
+      run: |
+        cd $GITHUB_WORKSPACE/beakerx_tests/dev_scripts
+        conda env create -n beakerx -f configuration.yml
     - name: Checkout beakerx_kernel_base repo
       uses: actions/checkout@v2
       with:
         repository: twosigma/beakerx_kernel_base
         path: beakerx_kernel_base
     - name: Build BeakerX Kernel Base
+      run: |
+        cd $GITHUB_WORKSPACE/beakerx_kernel_base
+        chmod +x gradlew
+        ./gradlew install
+    - name: Checkout beakerx_kernel_groovy repo
+      uses: actions/checkout@v2
+      with:
+        repository: twosigma/beakerx_kernel_groovy
+        path: beakerx_kernel_groovy
+    - name: Build BeakerX Groovy Kernel
       shell: bash -l {0}
       run: |
-        cd beakerx_tests/dev_scripts
-        ./install_kernels_notebook.sh beakerx
+        cd $GITHUB_WORKSPACE/beakerx_kernel_groovy
+        chmod +x gradlew
+        cd groovy-dist
+        conda activate beakerx
+        pip install -r requirements.txt --verbose
+        beakerx_kernel_groovy install
+    - name: Checkout beakerx_kernel_java repo
+      uses: actions/checkout@v2
+      with:
+        repository: twosigma/beakerx_kernel_java
+        path: beakerx_kernel_java
+    - name: Build BeakerX Java Kernel
+      shell: bash -l {0}
+      run: |
+        cd $GITHUB_WORKSPACE/beakerx_kernel_java
+        chmod +x gradlew
+        cd groovy-dist
+        conda activate beakerx
+        pip install -r requirements.txt --verbose
+        beakerx_kernel_java install
+    - name: Run e2e tests (Java kernel)
+      shell: bash -l {0}
+      run: |
+        cd $GITHUB_WORKSPACE/beakerx_tests/autotests
+        chmod +x gradlew
+        conda activate beakerx
+        python ci_tests.py --app=notebook --tst=java.* 
+    - name: Publish Test Report
+      if: ${{ always() }}
+      uses: scacap/action-surefire-report@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        report_paths: "**/test-results/test/TEST-*.xml"  
