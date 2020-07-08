@@ -55,6 +55,6 @@ jobs:
       shell: bash -l {0}
       run: |
         conda activate beakerx
-        cd $GITHUB_WORKSPACE/beakerx_tabledisplay
+        cd $GITHUB_WORKSPACE/beakerx_tabledisplay/beakerx_tabledisplay
         pip install -e .
         beakerx_tabledisplay install
