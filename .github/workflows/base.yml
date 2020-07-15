@@ -64,6 +64,9 @@ jobs:
         cd $GITHUB_WORKSPACE/beakerx_tabledisplay/beakerx_tabledisplay
         pip install -e .
         beakerx_tabledisplay install
+    - name: Fonts
+      shell: bash
+      run: fc-list
     - name: Run e2e tests (Autotranslation kernel)
       shell: bash -l {0}
       run: |
