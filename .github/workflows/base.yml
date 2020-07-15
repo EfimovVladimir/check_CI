@@ -76,7 +76,7 @@ jobs:
       if: failure()
       with:
         name: screenshots
-        path: $GITHUB_WORKSPACE/beakerx_tests/autotests/resources/img
+        path: ${{ github.workspace }}/beakerx_tests/autotests/resources/img
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
