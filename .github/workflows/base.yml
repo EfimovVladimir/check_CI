@@ -70,7 +70,12 @@ jobs:
         cd $GITHUB_WORKSPACE/beakerx_tests/autotests
         chmod +x gradlew
         conda activate beakerx
-        python ci_tests.py --app=notebook --tst=python.TableAPI* 
+        python ci_tests.py --app=notebook --tst=python.TableAPI*
+    - name: Archive screenshot results
+      uses: actions/upload-artifact@v1
+      with:
+        name: screenshots
+        path: $GITHUB_WORKSPACE/beakerx_tests/autotests/resources/img
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
