@@ -73,6 +73,7 @@ jobs:
         python ci_tests.py --app=notebook --tst=python.TableAPI*
     - name: Archive screenshot results
       uses: actions/upload-artifact@v1
+      if: failure()
       with:
         name: screenshots
         path: $GITHUB_WORKSPACE/beakerx_tests/autotests/resources/img
