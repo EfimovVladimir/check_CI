@@ -76,10 +76,10 @@ jobs:
         python ci_tests.py --app=notebook --tst=python.TableAPI*
     - name: Archive screenshot results
       uses: actions/upload-artifact@v1
-      if: failure()
+      if: always()
       with:
         name: screenshots
-        path: ${{ github.workspace }}/beakerx_tests/autotests/resources/img
+        path: ${{ github.workspace }}/beakerx_tests/autotests/resources/img/python
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
