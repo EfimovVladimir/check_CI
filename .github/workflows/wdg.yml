@@ -56,14 +56,15 @@ jobs:
         conda activate beakerx
         cd $GITHUB_WORKSPACE/beakerx_base
         pip install -e .
-    - name: Build BeakerX tabledisplay
+    - name: Build BeakerX Widgets
       shell: bash -l {0}
       run: |
         conda activate beakerx
         cd $GITHUB_WORKSPACE/beakerx_widgets/beakerx_widgets
         pip install -r requirements.txt --verbose
+        cd $GITHUB_WORKSPACE/beakerx_widgets
         beakerx_widgets install
-    - name: Run e2e tests (Autotranslation kernel)
+    - name: Run e2e tests (Widgets)
       shell: bash -l {0}
       run: |
         cd $GITHUB_WORKSPACE/beakerx_tests/autotests
