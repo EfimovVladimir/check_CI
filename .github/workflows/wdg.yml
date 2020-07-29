@@ -37,7 +37,6 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: twosigma/beakerx_base
-        ref: lukasz/change_module_name_to_beakerx
         path: beakerx_base
     - name: Checkout beakerx_tests repo
       uses: actions/checkout@v2
