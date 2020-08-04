@@ -44,7 +44,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: twosigma/beakerx_tests
-        ref: vladimir/update_table_tests
+        ref: vladimir/fix_tests
         path: beakerx_tests
     - name: Update conda package
       shell: bash -l {0}
