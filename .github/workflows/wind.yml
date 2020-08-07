@@ -17,11 +17,6 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
-    - name: Checkout beakerx_tests repo
-      uses: actions/checkout@v2
-      with:
-        repository: twosigma/beakerx_tests
-        path: beakerx_tests
     - name: Checkout beakerx_kernel_base repo
       uses: actions/checkout@v2
       with:
@@ -29,4 +24,4 @@ jobs:
         path: beakerx_kernel_base
     - name: Build BeakerX Kernel Base
       run: 
-        $GITHUB_WORKSPACE:path
+        cd $GITHUB_WORKSPACE/beakerx_kernel_base
