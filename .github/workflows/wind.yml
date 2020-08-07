@@ -23,5 +23,6 @@ jobs:
         repository: twosigma/beakerx_kernel_base
         path: beakerx_kernel_base
     - name: Build BeakerX Kernel Base
-      run: 
+      run: |
         echo $Env:GITHUB_WORKSPACE
+        cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
