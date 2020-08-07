@@ -24,4 +24,4 @@ jobs:
         path: beakerx_kernel_base
     - name: Build BeakerX Kernel Base
       run: 
-        cd $GITHUB_WORKSPACE/beakerx_kernel_base
+        echo ${env:PATH}
