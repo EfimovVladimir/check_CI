@@ -29,4 +29,4 @@ jobs:
         path: beakerx_kernel_base
     - name: Build BeakerX Kernel Base
       run: 
-        $GITHUB_WORKSPACE
+        $GITHUB_WORKSPACE:path
