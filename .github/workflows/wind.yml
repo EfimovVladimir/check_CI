@@ -28,7 +28,5 @@ jobs:
         repository: twosigma/beakerx_kernel_base
         path: beakerx_kernel_base
     - name: Build BeakerX Kernel Base
-      run: |
-        cd $GITHUB_WORKSPACE/beakerx_kernel_base
-        chmod +x gradlew
-        ./gradlew install
+      run: 
+        $GITHUB_WORKSPACE
