@@ -22,6 +22,10 @@ jobs:
       with:
         repository: twosigma/beakerx_kernel_base
         path: beakerx_kernel_base
+    - name: Set Var
+      run: |
+         echo "::set-env name=TMP::$env:USERPROFILE\AppData\Local\Temp"
+         echo "::set-env name=TEMP::$env:USERPROFILE\AppData\Local\Temp"
     - name: Build BeakerX Kernel Base
       run: |
         echo $Env:GITHUB_WORKSPACE
