@@ -59,10 +59,20 @@ jobs:
         echo $Env:GITHUB_WORKSPACE
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
         ./gradlew install
-    - name: Build Groovy, Java, Scala, Kotlin, Clojure Kernels
+    - name: Build Groovy Kernel
       run: |
         conda activate beakerx
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_groovy\groovy-dist
         pip install -r requirements.txt --verbose
         beakerx_kernel_groovy install
-        
+    - name: Run e2e tests (Autotranslation kernel)
+      run: |
+        cd  $Env:GITHUB_WORKSPACE\beakerx_tests\autotests
+        conda activate beakerx
+        python ci_tests.py --app=notebook --tst=groovy.*       
+    - name: Publish Test Report
+      if: ${{ always() }}
+      uses: scacap/action-surefire-report@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        report_paths: "**/test-results/test/TEST-*.xml"
