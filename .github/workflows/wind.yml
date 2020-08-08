@@ -26,4 +26,4 @@ jobs:
       run: |
         echo $Env:GITHUB_WORKSPACE
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
-        gradlew install
+        gradle -v
