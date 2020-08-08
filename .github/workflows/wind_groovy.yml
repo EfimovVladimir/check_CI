@@ -1,3 +1,5 @@
+name: windows Groovy kernel
+
 on:
   push:
     branches: [ master ]
@@ -34,6 +36,20 @@ jobs:
         repository: twosigma/beakerx_kernel_base
         ref: vladimir/windows_action
         path: beakerx_kernel_base
+    - name: Checkout beakerx_kernel_groovy repo
+      uses: actions/checkout@v2
+      with:
+        repository: twosigma/beakerx_kernel_groovy
+        path: beakerx_kernel_groovy
+    - name: Checkout beakerx_tests repo
+      uses: actions/checkout@v2
+      with:
+        repository: twosigma/beakerx_tests
+        path: beakerx_tests
+    - name: Update conda package
+      run: |
+        cd $Env:GITHUB_WORKSPACE\beakerx_kernel_groovy\groovy-dist
+        conda env create -n beakerx -f configuration.yml
     - name: Set Var
       run: |
          echo "::set-env name=TMP::$env:USERPROFILE\AppData\Local\Temp"
@@ -43,3 +59,10 @@ jobs:
         echo $Env:GITHUB_WORKSPACE
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
         ./gradlew install
+    - name: Build Groovy, Java, Scala, Kotlin, Clojure Kernels
+      run: |
+        conda activate beakerx
+        cd $Env:GITHUB_WORKSPACE\beakerx_kernel_groovy\groovy-dist
+        pip install -r requirements.txt --verbose
+        beakerx_kernel_groovy install
+        
