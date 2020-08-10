@@ -59,7 +59,8 @@ jobs:
         echo $Env:GITHUB_WORKSPACE
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
         ./gradlew install
-    - name: Build Groovy, Java, Scala, Kotlin, Clojure Kernels
+    - name: Build Groovy Kernels
+      shell: bash
       run: |
         conda activate beakerx
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_groovy\groovy-dist
