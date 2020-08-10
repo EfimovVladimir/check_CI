@@ -17,13 +17,20 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
+    - name: Cache gradle
+      uses: actions/cache@v2
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
     - name: Cache Conda
       uses: actions/cache@v1
       with:
         path: ~/.conda
         key: ${{ runner.os }}-mconda-${{ hashFiles('**/configuration.yml') }}
         restore-keys: |
-          ${{ runner.os }}-conda- 
+          ${{ runner.os }}-conda-          
     - name: Set up Conda
       uses: goanpeca/setup-miniconda@v1
       with:
@@ -36,14 +43,43 @@ jobs:
         repository: twosigma/beakerx_kernel_base
         ref: vladimir/windows_action
         path: beakerx_kernel_base
+    - name: Checkout beakerx_kernel_groovy repo
+      uses: actions/checkout@v2
+      with:
+        repository: twosigma/beakerx_kernel_groovy
+        path: beakerx_kernel_groovy
+    - name: Checkout beakerx_tests repo
+      uses: actions/checkout@v2
+      with:
+        repository: twosigma/beakerx_tests
+        path: beakerx_tests
     - name: Set Var
       run: |
          echo "::set-env name=TMP::$env:USERPROFILE\AppData\Local\Temp"
          echo "::set-env name=TEMP::$env:USERPROFILE\AppData\Local\Temp"
-         echo '::set-env name=CONDA_EXEC::C:\Miniconda\condabin\conda.bat'
     - name: Build BeakerX Kernel Base
       run: |
         echo $Env:GITHUB_WORKSPACE
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
-        ./gradlew install
-        
+        gradle clean install     
+    - name: Update conda package
+      run: |
+        cd $Env:GITHUB_WORKSPACE\beakerx_kernel_groovy\groovy-dist
+        conda env create -n beakerx -f configuration.yml
+    - name: Build Groovy Kernel
+      run: |
+        cd $Env:GITHUB_WORKSPACE\beakerx_kernel_groovy\groovy-dist
+        conda activate beakerx
+        pip install -r requirements.txt --verbose
+        beakerx_kernel_groovy install
+    - name: Run e2e tests (Groovy kernel)
+      run: |
+        cd  $Env:GITHUB_WORKSPACE\beakerx_tests\autotests
+        conda activate beakerx
+        python ./ci_tests.py --app=notebook --tst=groovy.*       
+    - name: Publish Test Report
+      if: ${{ always() }}
+      uses: scacap/action-surefire-report@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        report_paths: "**/test-results/test/TEST-*.xml"
