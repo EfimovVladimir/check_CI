@@ -44,7 +44,7 @@ jobs:
       run: |
         echo $Env:GITHUB_WORKSPACE
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
-        ./gradlew install     
+        gradle clean install     
     - name: Checkout beakerx_kernel_groovy repo
       uses: actions/checkout@v2
       with:
