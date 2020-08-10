@@ -45,25 +45,21 @@ jobs:
       with:
         repository: twosigma/beakerx_tests
         path: beakerx_tests
-    - name: Set Var
-      run: |
-         echo "::set-env name=TMP::$env:USERPROFILE\AppData\Local\Temp"
-         echo "::set-env name=TEMP::$env:USERPROFILE\AppData\Local\Temp"
     - name: Update conda package
       run: |
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_groovy\groovy-dist
         conda env create -n beakerx -f configuration.yml
+    - name: Set Var
+      run: |
+         echo "::set-env name=TMP::$env:USERPROFILE\AppData\Local\Temp"
+         echo "::set-env name=TEMP::$env:USERPROFILE\AppData\Local\Temp"
     - name: Build BeakerX Kernel Base
       run: |
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
-        ./gradlew clean install
+        ./gradlew install
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_groovy\groovy-dist
         conda activate beakerx
         pip install -r requirements.txt --verbose
         beakerx_kernel_groovy install
-    - name: Run e2e tests (Groovy kernel)
-      run: |
-        cd  $Env:GITHUB_WORKSPACE\beakerx_tests\autotests
-        conda activate beakerx
-        python ./ci_tests.py --app=notebook --tst=groovy.*
+        
         
