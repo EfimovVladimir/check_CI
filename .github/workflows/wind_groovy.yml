@@ -40,6 +40,7 @@ jobs:
       run: |
          echo "::set-env name=TMP::$env:USERPROFILE\AppData\Local\Temp"
          echo "::set-env name=TEMP::$env:USERPROFILE\AppData\Local\Temp"
+         echo '::set-env name=CONDA_EXEC::C:\Miniconda\condabin\conda.bat'
     - name: Build BeakerX Kernel Base
       run: |
         echo $Env:GITHUB_WORKSPACE
