@@ -40,8 +40,7 @@ jobs:
     - name: Build BeakerX Kernel Base
       run: |
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
-        conda activate beakerx
-        gradle clean install 
+        gradlew clean install 
     - name: Set up Conda
       uses: goanpeca/setup-miniconda@v1
       with:
