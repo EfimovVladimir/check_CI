@@ -59,7 +59,7 @@ jobs:
          echo "::set-env name=TEMP::$env:USERPROFILE\AppData\Local\Temp"
     - name: Build BeakerX Kernel Base
       run: |
-        echo $Env:GITHUB_WORKSPACE
+        conda deactivate
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
         gradle clean install     
     - name: Update conda package
