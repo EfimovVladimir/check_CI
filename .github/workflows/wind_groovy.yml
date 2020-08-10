@@ -44,7 +44,7 @@ jobs:
       run: |
         echo $Env:GITHUB_WORKSPACE
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
-        ./gradlew install     
+        gradlew install     
     - name: Checkout beakerx_kernel_groovy repo
       uses: actions/checkout@v2
       with:
@@ -69,7 +69,7 @@ jobs:
       run: |
         cd  $Env:GITHUB_WORKSPACE\beakerx_tests\autotests
         conda activate beakerx
-        python ci_tests.py --app=notebook --tst=groovy.*       
+        python ./ci_tests.py --app=notebook --tst=groovy.*       
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
