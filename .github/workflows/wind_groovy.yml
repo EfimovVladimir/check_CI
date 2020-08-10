@@ -34,7 +34,6 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: twosigma/beakerx_kernel_base
-        ref: vladimir/windows_action
         path: beakerx_kernel_base
     - name: Checkout beakerx_kernel_groovy repo
       uses: actions/checkout@v2
@@ -56,10 +55,10 @@ jobs:
          echo "::set-env name=TEMP::$env:USERPROFILE\AppData\Local\Temp"
     - name: Build BeakerX Kernel Base
       run: |
+        echo $Env:GITHUB_WORKSPACE
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
         ./gradlew install
     - name: Build Groovy Kernels
-      shell: bash
       run: |
         conda activate beakerx
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_groovy\groovy-dist
