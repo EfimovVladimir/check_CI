@@ -53,10 +53,10 @@ jobs:
       run: |
          echo "::set-env name=TMP::$env:USERPROFILE\AppData\Local\Temp"
          echo "::set-env name=TEMP::$env:USERPROFILE\AppData\Local\Temp"
-         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
-         ./gradlew install
     - name: Build BeakerX Kernel Base
       run: |
+        cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
+        ./gradlew install
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_groovy\groovy-dist
         conda activate beakerx
         pip install -r requirements.txt --verbose
