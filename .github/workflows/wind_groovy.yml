@@ -72,7 +72,7 @@ jobs:
         beakerx_kernel_groovy install        
     - name: Run e2e tests (Groovy kernel)
       run: |
-        cd $GITHUB_WORKSPACE/beakerx_tests/autotests
+        cd $Env:GITHUB_WORKSPACE\beakerx_tests\autotests
         conda activate beakerx
         python ./ci_tests.py --app=notebook --tst=groovy.Groovy* 
         
