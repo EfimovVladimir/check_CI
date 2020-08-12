@@ -72,7 +72,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/beakerx_tests/autotests
         conda activate beakerx
-        python ci_tests.py --app=notebook --tst=autotranslation.* 
+        python ci_tests.py --app=notebook --tst=groovy.* 
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
