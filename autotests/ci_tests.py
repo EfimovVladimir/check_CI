@@ -47,7 +47,8 @@ while 1:
         break
 
 # run tests
-tst_command = './gradlew cleanTest test -Dcur_app=%(app)s --tests "com.twosigma.beakerx.autotests.%(tst)s" --info' % { "app" : cur_app, "tst" : tst_templ }
+subprocess.call('gradle --info', shell=True)
+tst_command = 'gradle cleanTest test -Dcur_app=%(app)s --tests "com.twosigma.beakerx.autotests.%(tst)s" --info' % { "app" : cur_app, "tst" : tst_templ }
 print(tst_command)
 result = subprocess.call(tst_command, shell=True)
 if result:
