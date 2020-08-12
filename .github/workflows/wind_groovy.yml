@@ -63,7 +63,7 @@ jobs:
     - name: Build BeakerX Kernel Base
       run: |
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_base
-        ./gradlew install
+        gradle install
     - name: Build groovy
       run: |
         cd $Env:GITHUB_WORKSPACE\beakerx_kernel_groovy\groovy-dist
