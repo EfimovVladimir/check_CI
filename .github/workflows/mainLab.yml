@@ -60,6 +60,7 @@ jobs:
       shell: bash -l {0}
       run: |
         conda activate beakerx
+        conda install -y -c conda-forge jupyterlab=1
         cd $GITHUB_WORKSPACE/beakerx_kernel_groovy/groovy-dist
         pip install -r requirements.txt --verbose
         beakerx_kernel_groovy install
