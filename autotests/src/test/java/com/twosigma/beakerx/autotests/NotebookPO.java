@@ -1,3 +1,19 @@
+/*
+ *  Copyright 2020 TWO SIGMA OPEN SOURCE, LLC
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package com.twosigma.beakerx.autotests;
 
 import org.openqa.selenium.By;
@@ -8,7 +24,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class NotebookPO  extends BasePageObject  {
 
-    WebDriverWait wait = new WebDriverWait(webDriver, 20);
+    WebDriverWait wait = new WebDriverWait(webDriver, 30);
 
     protected NotebookPO(WebDriver webDriver) {
         super(webDriver);
@@ -17,7 +33,11 @@ public class NotebookPO  extends BasePageObject  {
     @Override
     public void runNotebookByUrl(String url) {
         webDriver.get("http://127.0.0.1:8888/notebooks" + url);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='notification_kernel']//span[text()='Kernel ready']")));
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='notification_kernel']//span[text()='Kernel ready']")));
+        } catch ( org.openqa.selenium.TimeoutException timeoutException){
+            timeoutException.printStackTrace();
+        }
         waitKernelIdleIcon(10);
     }
 

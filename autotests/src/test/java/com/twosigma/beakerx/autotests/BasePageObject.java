@@ -1,11 +1,27 @@
+/*
+ *  Copyright 2020 TWO SIGMA OPEN SOURCE, LLC
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package com.twosigma.beakerx.autotests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
@@ -52,12 +68,20 @@ public abstract class BasePageObject {
         action.pause(mseconds).perform();
     }
 
-    public Screenshot createActualScreenshot(WebElement element, String dirName, String fileName) throws IOException {
-        String pathName = getPathNameForImage(dirName, fileName + "Act");
+    public Screenshot createScreenshot(WebElement element, String dirName, String fileName) throws IOException {
+        String pathName = getPathNameForImage(dirName, fileName);
         Screenshot actualScreenshot =
                 new AShot().coordsProvider(new WebDriverCoordsProvider()).takeScreenshot(webDriver, element);
         ImageIO.write(actualScreenshot.getImage(), imgFormat, new File(pathName));
         return actualScreenshot;
+    }
+
+    public Screenshot createActualScreenshot(WebElement element, String dirName, String fileName) throws IOException {
+        return createScreenshot(element, dirName, fileName + "Act");
+    }
+
+    public Screenshot createExpectedScreenshot(WebElement element, String dirName, String fileName) throws IOException {
+        return createScreenshot(element, dirName, fileName + "Exp");
     }
 
     public int checkScreenshot(WebElement element, String dirName, String fileName) throws IOException {
@@ -77,7 +101,7 @@ public abstract class BasePageObject {
     }
 
     public List<WebElement> getAllOutputsOfCodeCell(WebElement codeCell, By selector){
-        FluentWait<WebElement> wait = new FluentWait<WebElement>(codeCell).withTimeout(10, TimeUnit.SECONDS);
+        FluentWait<WebElement> wait = new FluentWait<WebElement>(codeCell).withTimeout(20, TimeUnit.SECONDS);
         wait.until(new Function<WebElement, Boolean>() {
             public Boolean apply(WebElement codeCell) {
                 return codeCell.findElements(selector).size() > 0;
@@ -86,4 +110,17 @@ public abstract class BasePageObject {
         return codeCell.findElements(selector);
     }
 
+    public WebElement runCellToGetDtContainer(int index){
+        WebElement codeCell = runCodeCellByIndex(index);
+        return codeCell.findElement(By.cssSelector("div.dtcontainer"));
+    }
+
+    public WebElement runCellToGetSvgElement(int index){
+        WebElement codeCell = runCodeCellByIndex(index);
+        return codeCell.findElement(By.cssSelector("#svgg"));
+    }
+
+    public void scrollIntoView(WebElement element){
+        ((JavascriptExecutor)webDriver).executeScript("arguments[0].scrollIntoView();",element);
+    }
 }
