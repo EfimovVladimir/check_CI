@@ -70,7 +70,7 @@ jobs:
     - name: Run e2e tests (Autotranslation kernel)
       shell: bash -l {0}
       run: |
-        cd $GITHUB_WORKSPACE/beakerx_tests/autotests
+        cd autotests
         conda activate beakerx
         python ci_tests.py --app=notebook --tst=groovy.* 
     - name: Publish Test Report
