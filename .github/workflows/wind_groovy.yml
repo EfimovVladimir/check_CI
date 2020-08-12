@@ -68,8 +68,8 @@ jobs:
         pip install -r requirements.txt --verbose
         beakerx_kernel_groovy install
     - name: Run e2e tests (Autotranslation kernel)
-      shell: bash -l {0}
-      run: |
+      shell: cmd /C CALL {0}
+      run: >-
         cd $GITHUB_WORKSPACE/beakerx_tests/autotests
         conda activate beakerx
         python ci_tests.py --app=notebook --tst=groovy.* 
