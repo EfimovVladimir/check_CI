@@ -82,5 +82,5 @@ jobs:
     - name: clean cache
       run: |
         conda activate beakerx
-        npm cache clean --force
+        npm -v
         
