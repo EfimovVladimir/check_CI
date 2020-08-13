@@ -4,6 +4,7 @@ import argparse
 import signal
 import subprocess
 import platform
+import psutil
 
 here = os.path.abspath(os.path.dirname(__file__))
 beakerx_dir = os.path.abspath(os.path.join(here, ".."))
