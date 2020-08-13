@@ -60,7 +60,7 @@ jobs:
       with:
         repository: twosigma/beakerx_kernel_groovy
         path: beakerx_kernel_groovy
-    - name: Build Groovy, Java, Scala, Kotlin, Clojure Kernels
+    - name: Build Groovy Kernel
       shell: bash -l {0}
       run: |
         conda activate beakerx
