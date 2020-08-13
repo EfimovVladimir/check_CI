@@ -59,6 +59,7 @@ jobs:
         conda activate beakerx
         cd $GITHUB_WORKSPACE/beakerx_kernel_groovy/groovy-dist
         pip install -r requirements.txt --verbose
+        pip install psutil
         beakerx_kernel_groovy install
     - name: Run e2e tests (Autotranslation kernel)
       shell: bash -l {0}
