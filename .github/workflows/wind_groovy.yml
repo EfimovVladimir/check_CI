@@ -71,7 +71,7 @@ jobs:
     - name: Run e2e tests (Groovy kernel)
       shell: bash -l {0}
       run: |
-        cd autotests
+        cd $GITHUB_WORKSPACE/beakerx_tests/autotests
         conda activate beakerx
         python ci_tests.py --app=notebook --tst=groovy.* 
     - name: Publish Test Report
