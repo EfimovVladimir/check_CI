@@ -1,6 +1,8 @@
 name: Conda build (Ubuntu Lab)
 
 on:
+  push:
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -61,14 +63,15 @@ jobs:
         conda install -y -c conda-forge jupyterlab=1
         cd $GITHUB_WORKSPACE/beakerx_kernel_groovy/groovy-dist
         pip install -r requirements.txt --verbose
+        pip install psutil
         beakerx_kernel_groovy install
     - name: Run e2e tests (Autotranslation kernel)
       shell: bash -l {0}
       run: |
-        cd $GITHUB_WORKSPACE/beakerx_tests/autotests
+        cd autotests
         chmod +x gradlew
         conda activate beakerx
-        python ci_tests.py --app=lab --tst=groovy.* 
+        python ci_tests.py --app=lab --tst=groovy.Groovy* 
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
