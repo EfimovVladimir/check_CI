@@ -63,6 +63,7 @@ else:
     os.killpg(os.getpgid(beakerx.pid), signal.SIGKILL)
     kill_processes('jupyter')
     kill_processes('webdriver')
+    kill_processes('java')
     
 if result:
     sys.exit(20)
