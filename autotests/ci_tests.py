@@ -49,7 +49,7 @@ while 1:
         break
 
 # run tests
-tst_command = 'gradle cleanTest test -Dcur_app=%(app)s --tests "com.twosigma.beakerx.autotests.%(tst)s" --info' % { "app" : cur_app, "tst" : tst_templ }
+tst_command = 'gradle --no-daemon cleanTest test -Dcur_app=%(app)s --tests "com.twosigma.beakerx.autotests.%(tst)s" --info' % { "app" : cur_app, "tst" : tst_templ }
 print(tst_command)
 result = subprocess.call(tst_command, shell=True)
 
