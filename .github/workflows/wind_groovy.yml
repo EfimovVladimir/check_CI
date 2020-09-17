@@ -1,8 +1,6 @@
 name: windows Groovy kernel
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
