@@ -23,9 +23,6 @@ jobs:
         key: ${{ runner.os }}-mconda-${{ hashFiles('**/configuration.yml') }}
         restore-keys: |
           ${{ runner.os }}-conda-   
-    - name: Setup Lato font
-      shell: bash
-      run: sudo apt-get install -y fonts-lato       
     - name: Set up Conda
       uses: goanpeca/setup-miniconda@v1
       with:
@@ -33,6 +30,12 @@ jobs:
     - name: Verify conda version
       shell: bash
       run: conda --version
+    - name: Setup fonts
+      shell: bash
+      run: conda install -y -c conda-forge r-systemfonts 
+    - name: Fonts list
+      shell: bash
+      run: fc-list
     - name: Checkout beakerx_tabledisplay repo
       uses: actions/checkout@v2
       with:
@@ -66,9 +69,6 @@ jobs:
         cd $GITHUB_WORKSPACE/beakerx_tabledisplay/beakerx_tabledisplay
         pip install -e .
         beakerx_tabledisplay install
-    - name: Fonts list
-      shell: bash
-      run: fc-list
     - name: Run e2e tests (table)
       shell: bash -l {0}
       run: |
