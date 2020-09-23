@@ -25,7 +25,7 @@ jobs:
           ${{ runner.os }}-conda-   
     - name: Setup Lato font
       shell: bash
-      run: apt-get install -y fonts-lato       
+      run: sudo apt-get install -y fonts-lato       
     - name: Set up Conda
       uses: goanpeca/setup-miniconda@v1
       with:
