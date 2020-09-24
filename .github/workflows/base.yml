@@ -50,6 +50,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: twosigma/beakerx_tests
+        ref: vladimir/fonts_in_tables
         path: beakerx_tests
     - name: Update conda package
       shell: bash -l {0}
@@ -69,7 +70,7 @@ jobs:
         cd $GITHUB_WORKSPACE/beakerx_tabledisplay/beakerx_tabledisplay
         pip install -e .
         beakerx_tabledisplay install
-    - name: Run e2e tests (table)
+    - name: Run e2e tests (table v0)
       shell: bash -l {0}
       run: |
         cd $GITHUB_WORKSPACE/beakerx_tests/autotests
