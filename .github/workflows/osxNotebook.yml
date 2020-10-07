@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -40,6 +40,7 @@ jobs:
         conda activate beakerx_all
         conda install -y -c conda-forge openjdk=11.0.1
         conda install -y -c conda-forge notebook
+        conda list
     - name: Install beakerx_all
       shell: bash -l {0}
       run: |
