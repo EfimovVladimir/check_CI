@@ -15,17 +15,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 1.11
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.11  
-    - name: Cache gradle
-      uses: actions/cache@v2
-      with:
-        path: ~/.gradle/caches
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-  
     - name: Set up Conda
       uses: goanpeca/setup-miniconda@v1
       with:
@@ -39,9 +28,7 @@ jobs:
         conda create -y --name beakerx_${{ matrix.os }} python=3.7.5
         conda activate beakerx_${{ matrix.os }}
         conda install -y -c conda-forge openjdk=11.0.1
-        conda install -y -c conda-forge notebook
-        conda list
-    - name: Install beakerx_${{ matrix.os }}
+    - name: Install beakerx_all
       shell: bash -l {0}
       run: |
         conda activate beakerx_${{ matrix.os }}
