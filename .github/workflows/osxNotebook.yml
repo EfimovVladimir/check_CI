@@ -37,7 +37,7 @@ jobs:
       shell: bash -l {0}
       run: |
         conda create -y --name beakerx_${{ matrix.os }} python=3.7.5
-        conda activate beakerx_all
+        conda activate beakerx_${{ matrix.os }}
         conda install -y -c conda-forge openjdk=11.0.1
         conda install -y -c conda-forge notebook
         conda list
