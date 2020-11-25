@@ -42,13 +42,13 @@ jobs:
     - name: Set Var
       shell: bash -l {0}
       run: |
-         printenv
-         echo "action_state=yellow" >> $GITHUB_ENV
+         echo "TMP=$USERPROFILE\\AppData\\Local\\Temp" >> $GITHUB_ENV
+         echo "TEMP=$USERPROFILE\\AppData\\Local\\Temp" >> $GITHUB_ENV
     - name: Build BeakerX Kernel Base
       shell: bash -l {0}
       run: |
-        echo $action_state
-        echo $GITHUB_ENV
+        echo $TEMP
+        echo $TMP
         cd $GITHUB_WORKSPACE/beakerx_kernel_base
         ./gradlew install
     - name: Checkout beakerx_kernel_groovy repo
