@@ -47,8 +47,6 @@ jobs:
     - name: Build BeakerX Kernel Base
       shell: bash -l {0}
       run: |
-        echo $TEMP
-        echo $TMP
         cd $GITHUB_WORKSPACE/beakerx_kernel_base
         ./gradlew install
     - name: Checkout beakerx_kernel_groovy repo
