@@ -40,11 +40,12 @@ jobs:
         repository: twosigma/beakerx_kernel_base
         path: beakerx_kernel_base
     - name: Set Var
+      shell: bash -l {0}
       run: |
-         echo $Env:TMP 
-         echo $Env:TEMP
+         printenv
          echo "action_state=yellow" >> $GITHUB_ENV
     - name: Build BeakerX Kernel Base
+      shell: bash -l {0}
       run: |
         echo $action_state
         echo $GITHUB_ENV
