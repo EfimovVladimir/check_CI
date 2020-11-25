@@ -41,8 +41,8 @@ jobs:
         path: beakerx_kernel_base
     - name: Set Var
       run: |
-         echo "$env:USERPROFILE\AppData\Local\Temp"
-         echo "$env:USERPROFILE\AppData\Local\Temp"
+         echo $env:USERPROFILE\AppData\Local\Temp
+         echo $env:USERPROFILE\AppData\Local\Temp
     - name: Build BeakerX Kernel Base
       shell: bash -l {0}
       run: |
